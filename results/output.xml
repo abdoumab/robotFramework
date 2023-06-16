@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.1 (Python 3.9.0 on win32)" generated="20230616 11:57:06.750" rpa="false" schemaversion="3">
+<suite id="s1" name="Tc 003" source="C:\Projets_robot\OrangeHRMRobot\tests\tc_003.robot">
+<test id="s1-t1" name="TC 002 get Request" line="15">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>GetUser</arg>
+<arg>${Base URL}</arg>
+<arg>verify=true</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230616 11:57:07.055" level="INFO">Creating Session using : alias=GetUser, url=https://reqres.in, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20230616 11:57:07.053" endtime="20230616 11:57:07.057"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{Params}</var>
+<arg>page=2</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230616 11:57:07.059" level="INFO">&amp;{Params} = { page=2 }</msg>
+<status status="PASS" starttime="20230616 11:57:07.058" endtime="20230616 11:57:07.059"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${Response}</var>
+<arg>GetUser</arg>
+<arg>/api/users</arg>
+<arg>${Params}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230616 11:57:07.205" level="INFO">GET Request : url=https://reqres.in/api/users?page=2 
+ path_url=/api/users?page=2 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230616 11:57:07.205" level="INFO">GET Response : url=https://reqres.in/api/users?page=2 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 16 Jun 2023 10:57:07 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"406-ut0vzoCuidvyMf8arZpMpJ6ZRDw"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'HIT', 'Age': '6136', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=geOYCCOmDDjZXDdkzSfTgvEH%2FLnAjabVOuWxCABfVhLA3iXydyZeb9yEbMHc8AzARWV5rjpRbb4kyXmJfCDYbLA2FnLYWnmGSbmDlbE1zFqwpUbvDk3jDnFudQ%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '7d8287b3cfa141c5-MRS', 'Content-Encoding': 'gzip'} 
+ body={"page":2,"per_page":6,"total":12,"total_pages":2,"data":[{"id":7,"email":"michael.lawson@reqres.in","first_name":"Michael","last_name":"Lawson","avatar":"https://reqres.in/img/faces/7-image.jpg"},{"id":8,"email":"lindsay.ferguson@reqres.in","first_name":"Lindsay","last_name":"Ferguson","avatar":"https://reqres.in/img/faces/8-image.jpg"},{"id":9,"email":"tobias.funke@reqres.in","first_name":"Tobias","last_name":"Funke","avatar":"https://reqres.in/img/faces/9-image.jpg"},{"id":10,"email":"byron.fields@reqres.in","first_name":"Byron","last_name":"Fields","avatar":"https://reqres.in/img/faces/10-image.jpg"},{"id":11,"email":"george.edwards@reqres.in","first_name":"George","last_name":"Edwards","avatar":"https://reqres.in/img/faces/11-image.jpg"},{"id":12,"email":"rachel.howell@reqres.in","first_name":"Rachel","last_name":"Howell","avatar":"https://reqres.in/img/faces/12-image.jpg"}],"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}} 
+ </msg>
+<msg timestamp="20230616 11:57:07.206" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230616 11:57:07.059" endtime="20230616 11:57:07.206"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${JsonResponse}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230616 11:57:07.211" level="INFO">${JsonResponse} = {'page': 2, 'per_page': 6, 'total': 12, 'total_pages': 2, 'data': [{'id': 7, 'email': 'michael.lawson@reqres.in', 'first_name': 'Michael', 'last_name': 'Lawson', 'avatar': 'https://reqres.in/img/faces...</msg>
+<status status="PASS" starttime="20230616 11:57:07.208" endtime="20230616 11:57:07.211"/>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${UsersList}</var>
+<arg>${JsonResponse}</arg>
+<arg>data[:]</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20230616 11:57:07.278" level="INFO">${UsersList} = [{'id': 7, 'email': 'michael.lawson@reqres.in', 'first_name': 'Michael', 'last_name': 'Lawson', 'avatar': 'https://reqres.in/img/faces/7-image.jpg'}, {'id': 8, 'email': 'lindsay.ferguson@reqres.in', '...</msg>
+<status status="PASS" starttime="20230616 11:57:07.212" endtime="20230616 11:57:07.278"/>
+</kw>
+<kw name="Get From List" library="Collections">
+<var>${FirstUser}</var>
+<arg>${UsersList}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<msg timestamp="20230616 11:57:07.280" level="INFO">${FirstUser} = {'id': 7, 'email': 'michael.lawson@reqres.in', 'first_name': 'Michael', 'last_name': 'Lawson', 'avatar': 'https://reqres.in/img/faces/7-image.jpg'}</msg>
+<status status="PASS" starttime="20230616 11:57:07.279" endtime="20230616 11:57:07.280"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${FirstUser['first_name']}</arg>
+<arg>Michael</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230616 11:57:07.281" endtime="20230616 11:57:07.284"/>
+</kw>
+<status status="PASS" starttime="20230616 11:57:07.051" endtime="20230616 11:57:07.284"/>
+</test>
+<status status="PASS" starttime="20230616 11:57:06.752" endtime="20230616 11:57:07.287"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Tc 003">Tc 003</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
